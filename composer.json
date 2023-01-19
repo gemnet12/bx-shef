@@ -1,0 +1,14 @@
+{
+    "name": "gemne/bx-shef",
+    "autoload": {
+        "psr-4": {
+            "Project\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "gemnet12"
+        }
+    ],
+    "require": {}
+}
