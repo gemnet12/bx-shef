@@ -5,6 +5,7 @@
 ?>
 
 <h1>Here are your signatures</h1>
+<a href="/">Back</a>
 <?php foreach ($signatures as $signature) : ?>
     <?= $signature ?>
     <div>

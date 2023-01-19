@@ -10,7 +10,7 @@ class Service
     /**
      * generateSignature
      *
-     * @param  array<string> $data
+     * @param  array $data
      * @param  array<string> $colors
      * @return void
      */
@@ -34,12 +34,17 @@ class Service
     private function generateHTML(array $data, string $color = null): string
     {
         $phone = $data['phone'];
-        $userData = [...$data, 'phone' => $this->stylePhoneNumber($phone)];
-        $string = '<table style="color: ' . $color . '">';
-        foreach ($userData as $key=>$value) {
+        $email = $data['email'];
+
+        $userData = [
+            ...$data,
+            'phone' => $this->stylePhoneNumber($phone),
+            'email' => $this->clickableEmail($email),
+        ];
+        $string = '<hr><table style="color: ' . $color . '"><tr><td>С уважением,</td></tr>';
+        foreach ($userData as $value) {
             $string .= "
             <tr>
-                <td>$key:</td>
                 <td>$value</td>
             </tr>
             ";
@@ -64,6 +69,11 @@ class Service
         $personalNumber2 = substr($number, 8, 2);
         $personalNumber3 = substr($number, 10, 2);
         $fullPersonalNumber = implode('-', [$personalNumber1, $personalNumber2, $personalNumber3]);
-        return '+' . $countryCode . $operatorCode . $fullPersonalNumber;
+        return '<span>phone:<a href="tel:' . $number . '">+' . $countryCode . $operatorCode . $fullPersonalNumber . '</a></span>';
+    }
+
+    private function clickableEmail(string $email): string
+    {
+        return '<span>email:<a href= "mailto:' . $email . '">' . $email . '</a></span>';
     }
 }
